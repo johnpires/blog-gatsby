@@ -16,6 +16,7 @@ export const query = graphql`
                        primary {
                          hero_content
                          hero_title
+                         background_image
                        }
                      }
                    }
