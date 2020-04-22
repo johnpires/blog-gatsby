@@ -21,6 +21,7 @@ const navigationQuery = graphql`
       allNavigations {
         edges {
           node {
+            branding
             navigation_links {
               label
               link {
@@ -67,28 +68,50 @@ const NavLinks = styled.div`
   display: flex;
 `;
 
+const Branding = styled.div`
+  margin: auto 0;
+
+  a {
+    color: orange;
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
+  }
+`
+
 const Layout = ({ children }) => {  
 
   return (
     <>
       <Header>
-        <NavLinks>
-          <StaticQuery
-            query={`${navigationQuery}`}
-            render={data => {
-              console.log(data)
-              return data.prismic.allNavigations.edges[0].node.navigation_links.map(
-                link => {
-                  return (
-                    <NavLink key={link.link._meta.uid}>
-                      <Link to={`/${link.link._meta.uid}`}>{link.label}</Link>
-                    </NavLink>
-                  )
-                }
-              )
-            }}
-          />
-        </NavLinks>
+        <StaticQuery
+          query={`${navigationQuery}`}
+          render={data => {
+            console.log(data)
+            return (
+              <>
+                <Branding>
+                  <Link to="/">
+                    {data.prismic.allNavigations.edges[0].node.branding}
+                  </Link>
+                </Branding>
+                <NavLinks>
+                  {data.prismic.allNavigations.edges[0].node.navigation_links.map(
+                    link => {
+                      return (
+                        <NavLink key={link.link._meta.uid}>
+                          <Link to={`/${link.link._meta.uid}`}>
+                            {link.label}
+                          </Link>
+                        </NavLink>
+                      )
+                    }
+                  )}
+                </NavLinks>
+              </>
+            )
+          }}
+        />
       </Header>
       <Main>{children}</Main>
     </>
