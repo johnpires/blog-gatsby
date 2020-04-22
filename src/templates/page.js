@@ -23,7 +23,6 @@ export const query = graphql`
        `
 
 const Page = (props) => {
-    console.log(props);
 
     const pageTitle = props.data.prismic.allPages.edges[0].node.page_title;
     const content = props.data.prismic.allPages.edges[0].node.content;
