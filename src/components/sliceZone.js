@@ -1,6 +1,7 @@
 import React from 'react';
 import Hero from './hero';
 import CallToActionGrid from './callToActionGrid';
+import PriceList from './priceList';
 
 const SliceZone = ({body}) => {
     console.log(body)
@@ -15,7 +16,7 @@ const SliceZone = ({body}) => {
                             content={bodyContent.primary.hero_content} 
                             key={i}/>
                     )
-                }else if (bodyContent.type == 'call_to_action_grid2') {
+                }else if (bodyContent.type === 'call_to_action_grid2') {
                     return(
                         <CallToActionGrid 
                             key={i}
@@ -23,7 +24,13 @@ const SliceZone = ({body}) => {
                             title={bodyContent.primary.section_title}
                         />
                     )
-                } else {
+                } else if(bodyContent.type === 'price_list2'){
+                    return <PriceList
+                      key={i}
+                      title={bodyContent.primary.title}
+                      prices={bodyContent.fields}
+                    />
+                }else {
                     return null
                 }
             })}
