@@ -1,5 +1,6 @@
 import React from 'react';
 import Hero from './hero';
+import CallToActionGrid from './callToActionGrid';
 
 const SliceZone = ({body}) => {
     console.log(body)
@@ -14,8 +15,16 @@ const SliceZone = ({body}) => {
                             content={bodyContent.primary.hero_content} 
                             key={i}/>
                     )
-                }else{
-                    return null;
+                }else if (bodyContent.type == 'call_to_action_grid2') {
+                    return(
+                        <CallToActionGrid 
+                            key={i}
+                            callToActions={bodyContent.fields}
+                            title={bodyContent.primary.section_title}
+                        />
+                    )
+                } else {
+                    return null
                 }
             })}
         </div>

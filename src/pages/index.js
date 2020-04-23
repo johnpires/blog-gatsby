@@ -19,6 +19,27 @@ export const query = graphql`
                          background_image
                        }
                      }
+                     ... on PRISMIC_HomepageBodyCall_to_action_grid2 {
+                       type
+                       primary {
+                         section_title
+                       }
+                       fields {
+                         button_destination {
+                           ... on PRISMIC_Page {
+                             page_title
+                             content
+                             _meta {
+                               uid
+                             }
+                           }
+                         }
+                         button_label
+                         call_to_action_title
+                         content
+                         featured_image
+                       }
+                     }
                    }
                  }
                }
@@ -28,6 +49,7 @@ export const query = graphql`
        `
 
 const IndexPage = (props) => {
+  console.log(props);
   return(
     <Layout>
       <SliceZone body={props.data.prismic.allHomepages.edges[0].node.body}/>
